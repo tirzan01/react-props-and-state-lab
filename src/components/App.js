@@ -9,10 +9,10 @@ class App extends React.Component {
     super()
 
     this.state = {
+      findPetBtnClicked: undefined,
       pets: [],
       filters: {
         type: 'all',
-        newType: 'all'
       }
     }
   }
@@ -25,24 +25,20 @@ class App extends React.Component {
         console.log(json)
         this.setState({
           pets: [...json],
+          findPetBtnClicked: Math.random(),
         })
       })
-      return 
+      return
     }
       this.setState({
-        pets: this.state.pets,
-        filters:{
-          ...this.state.filters,
-          type: this.state.filters.newType
-        }
+        findPetBtnClicked: Math.random(),
       })
   }
 
   filterAnimalType = newValue => {
     this.setState({
       filters: {
-        ...this.state.filters,
-        newType: newValue
+        type: newValue
       }
     })
   }
@@ -65,10 +61,10 @@ class App extends React.Component {
         <div className="ui container">
           <div className="ui grid">
             <div className="four wide column">
-              <Filters filterAnimalType={this.filterAnimalType} fetchAnimal={this.fetchAnimal} confirmFilterAnimalType={this.props.confirmFilterAnimalType}/>
+              <Filters updatefindPetBtnClicked={this.updatefindPetBtnClicked} filterAnimalType={this.filterAnimalType} fetchAnimal={this.fetchAnimal} confirmFilterAnimalType={this.props.confirmFilterAnimalType}/>
             </div>
             <div className="twelve wide column">
-              <PetBrowser value={this.state.filters.type} pets={this.state.pets} handleIsAdopted={this.handleIsAdopted}/>
+              <PetBrowser findPetBtnClicked={this.state.findPetBtnClicked} value={this.state.filters.type} pets={this.state.pets} handleIsAdopted={this.handleIsAdopted}/>
             </div>
           </div>
         </div>
